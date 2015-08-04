@@ -12,6 +12,7 @@ p {
 pre, code {
 	font-size: 90%;
 }
+
 .frame {
     background: white;
     margin: auto;
@@ -19,9 +20,10 @@ pre, code {
     width: 600px;
     transform-origin: top center;
     overflow: auto;
-    box-shadow: 3px 3px 10px 10px #CCD;
+    /* box-shadow: 3px 3px 10px 10px #CCD; */
     border-radius: 10px;
 }
+
 h1, h2, h3 {
     font-family: sans-serif;
 }
@@ -62,31 +64,38 @@ th, td {
     cursor: default;
     color: #244;
 }
+
 .hidden {
     display: none;
 }
+
 img {
     padding: 10px;
     margin: auto;
     display: block;
 }
+
 .comment, rem {
     background: rgba(255, 255, 0, 0.3);
     color: #666;
     font-size: 75%;
 }
+
 .insert, ins {
     color: #008000;
     background: rgba(255, 255, 0, 0.3);
 }
+
 .remove, del {
     color: #FF0000;
     background: rgba(255, 255, 0, 0.3);
     text-decoration: line-through;
 }
+
 sup {
     font-size: 70%;
 }
+
 .footnotes {
     font-size: 80%;
 }

@@ -1,17 +1,15 @@
 CC = gcc
 LDLIBS = -lmarkdown
 CFLAGS = -Wall -ansi -pedantic -g -O2 -pipe
-# OBJCPY = objcopy \
+OBJCPY = objcopy \
 		 --input binary \
 		 --output elf64-x86-64 \
 		 --binary-architecture i386 
-
 # OBJCPY = objcopy \
 		 --input binary \
 		 --output elf32-i386 \
 		 --binary-architecture i386 
-
-OBJCPY = objcopy \
+# OBJCPY = objcopy \
 		--input binary \
 		--output elf32-littlearm \
 		--binary-architecture arm
