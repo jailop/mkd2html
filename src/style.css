@@ -1,0 +1,92 @@
+body {
+    background: #EEE;
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 150%;
+}
+
+p {
+    text-align: justify;
+}
+
+pre, code {
+	font-size: 90%;
+}
+.frame {
+    background: white;
+    margin: auto;
+    padding: 30px;
+    width: 600px;
+    transform-origin: top center;
+    overflow: auto;
+    box-shadow: 3px 3px 10px 10px #CCD;
+    border-radius: 10px;
+}
+h1, h2, h3 {
+    font-family: sans-serif;
+}
+
+h1 {
+    text-align: center;
+    line-height: 120%;
+}
+
+table {
+    width: 90%;
+}
+
+th, td {
+        border: #ccc solid 1px;
+        vertical-align: top;
+        font-size: 90%;
+}
+.center {
+    display: block;
+    margin: auto;
+}
+.panel {
+    position: absolute;
+    display: block;
+    top: 5px;
+    left: calc(50% - 42px);
+    z-index: 9001;
+}
+.panel svg {
+    fill: #EEE;
+    background: white;
+}
+.panel svg:hover {
+    fill: #666;
+}
+.panel a {
+    cursor: default;
+    color: #244;
+}
+.hidden {
+    display: none;
+}
+img {
+    padding: 10px;
+    margin: auto;
+    display: block;
+}
+.comment, rem {
+    background: rgba(255, 255, 0, 0.3);
+    color: #666;
+    font-size: 75%;
+}
+.insert, ins {
+    color: #008000;
+    background: rgba(255, 255, 0, 0.3);
+}
+.remove, del {
+    color: #FF0000;
+    background: rgba(255, 255, 0, 0.3);
+    text-decoration: line-through;
+}
+sup {
+    font-size: 70%;
+}
+.footnotes {
+    font-size: 80%;
+}

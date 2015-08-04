@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+body {
+    background: white;
+    font-family: sans-serif;
+    line-height: 150%;
+}
+
+p {
+    text-align: justify;
+}
+pre, code {
+	font-size: 90%;
+}
+.frame {
+    margin: auto;
+    padding: 10px;
+    width: 600px;
+    transform-origin: top center;
+    overflow: auto;
+}
+h1, h2, h3 {
+    font-family: sans-serif;
+}
+h1 {
+    text-align: center;
+    line-height: 120%;
+}
+th, td {
+        border: #ccc solid 1px;
+        vertical-align: top;
+        font-size: 90%;
+}
+.center {
+    display: block;
+    margin: auto;
+}
+.panel {
+    position: absolute;
+    display: block;
+    top: 5px;
+    left: calc(50% - 42px);
+    z-index: 9001;
+}
+.panel svg {
+    fill: #EEE;
+    background: white;
+}
+.panel svg:hover {
+    fill: #666;
+}
+.panel a {
+    cursor: default;
+}
+.hidden {
+    display: none;
+}
+img {
+    padding: 10px;
+    margin: auto;
+    display: block;
+}
+.comment, rem {
+    background: rgba(255, 255, 0, 0.3);
+    color: #666;
+    font-size: 75%;
+}
+.insert, ins {
+    color: #008000;
+    background: rgba(255, 255, 0, 0.3);
+}
+.remove, del {
+    color: #FF0000;
+    background: rgba(255, 255, 0, 0.3);
+    text-decoration: line-through;
+}
+sup {
+    font-size: 70%;
+}
+.footnotes {
+    font-size: 80%;
+}
+
+</style>
+<script type="application/javascript">
+window.onload = init;
+scaled = 0;
+current = 0;
+
+function init()
+{
+	window.onkeydown = changeFrame;
+	divs = document.getElementsByTagName('div');
+	els = divs.length;
+	for (i in divs) {
+		if (i > 0) divs[i].setAttribute('class', 'hidden');
+	}
+	document.getElementById('nav:home').onclick = moveHome;
+	document.getElementById('nav:prev').onclick = movePrev;
+	document.getElementById('nav:next').onclick = moveNext;
+	document.getElementById('nav:last').onclick = moveLast;
+	document.getElementById('nav:zoom').onclick = scaleFrame;
+}
+
+function changeFrame(ev)
+{
+	switch (ev.keyCode)
+	{
+		case 33:
+			movePrev(); break;
+		case 34:
+			movePrev(); break;
+		case 35:
+			moveLast(); break;
+		case 36:
+			moveHome(); break;
+		case 37:
+			movePrev(); break;
+		case 38:
+			movePrev(); break;
+		case 39:
+			moveNext(); break;
+		case 40:
+			moveNext(); break;
+		case 80: /* Key: p */
+			scaleFrame(); break;
+		case 90: /* Key: z */
+			scaleFrame(); break;
+	}
+}
+
+function moveHome()
+{
+	if (current > 0)
+	{
+		divs[current].setAttribute('class', 'hidden');
+		current = 0;
+		divs[current].setAttribute('class', 'frame');
+	}
+}
+
+function movePrev()
+{
+	if (current > 0)
+	{
+		divs[current].setAttribute('class', 'hidden');
+		current--;
+		divs[current].setAttribute('class', 'frame');
+	}
+}
+
+function moveNext()
+{
+	if (current + 1 < els)
+	{
+		divs[current].setAttribute('class', 'hidden');
+		current++;
+		divs[current].setAttribute('class', 'frame');
+	}
+}
+
+function moveLast()
+{
+	if (current + 1 != els)
+	{
+		divs[current].setAttribute('class', 'hidden');
+		current = els - 1;
+		divs[current].setAttribute('class', 'frame');
+	}
+}
+
+function scaleFrame()
+{
+	if (scaled == 0)
+	{
+		var th = window.innerHeight;
+		var tw = window.innerWidth;
+		for (i = 0; i < els; i++)
+		{
+			if (i != current)
+				divs[i].setAttribute('class', 'frame');
+			var dh = divs[i].clientHeight;
+			var dw = divs[i].clientWidth;
+			var sy = th / dh * 0.96;
+			var sx = tw / dw * 0.98;
+			var ss = sx > sy ? sy : sx;
+			ss = dh > th ? sx : ss;
+			sty = 'transform: scale('+ ss + ',' + ss + ')';
+			sty = '-webkit-' + sty + ';' + sty;
+			divs[i].style = sty; 
+			if (i != current)
+				divs[i].setAttribute('class', 'hidden');
+		}
+		scaled = 1;
+	}
+	else
+	{
+		for (i = 0; i < els; i++)
+		{
+			if (i != current)
+				divs[i].setAttribute('class', 'frame');
+			sty = 'transform: scale(1, 1)';
+			sty = '-webkit-' + sty + ';' + sty;
+			divs[i].style = sty;
+			if (i != current)
+				divs[i].setAttribute('class', 'hidden');
+		}
+		scaled = 0;
+	}
+}
+
+
+</script>
+
+</head>
+<body>
+
+<div class="frame">
+
+<p><code>mkd2html</code> convierte archivos escritos en
+Markdown en páginas web o presentaciones para
+ser vistas en un navegador.</p>
+
+<p>Requerimientos:</p>
+
+<ul>
+<li><a href="http://www.pell.portland.or.us/~orc/Code/discount/">Discount</a>.
+Una librería C que implementa el etiquetado
+Markdown.</li>
+</ul>
+
+
+<p>Plantilla:</p>
+
+<p>La página se compone a partir de campos
+definidos en el archivo template.html. Los
+campos son los siguientes:</p>
+
+<ul>
+<li><code>{BODY}</code>: El cuerpo de la página.</li>
+<li><code>{NAV}</code>: Barra de navegación, usada en
+presentaciones. Está definida en el archivo
+<code>nav.html</code>.</li>
+<li><code>{STYLE}</code>: Hoja de estilo CSS. Está definida
+en el archivo <code>style.css</code>.</li>
+<li><code>{SCRIPT}</code>: El programa en Javascript que
+controla la interacción de la página. Está
+definido en el archivo <code>script.js</code>.</li>
+<li><code>{MATH}</code>: El llamado al script de Mathjax,
+cuando en la página se usan símbolos
+matemáticos. Está definido en el archivo
+<code>math.js</code>.</li>
+</ul>
+
+
+<p>Markdown:</p>
+
+<p>Markdown es un conjunto de
+herramientas para convertir texto en plano en
+páginas HTML y otros formatos.</p>
+
+<ul>
+<li><a href="http://daringfireball.net/projects/markdown/">Página de John
+Gruber</a>
+(creardor de Markdown).</li>
+</ul>
+
+</div>
+
+
+</body>
+</html>

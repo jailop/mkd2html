@@ -1,0 +1,8 @@
+2014-10-23 Version 0.1 is launched.
+
+- Options for help, include math and make slides
+included. (see -h option)
+- Bugs of memory management solved.
+- GLib dependency removed.
+- Input & output files are optional. It can be used in pipes.
+- Bugs in script.js corrected: invalid values when navigator bar is not present and hidden footnotes.

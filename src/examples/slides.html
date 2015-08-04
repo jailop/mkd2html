@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+body {
+    background: white;
+    font-family: sans-serif;
+    line-height: 150%;
+}
+p {
+    text-align: justify;
+}
+.frame {
+    margin: auto;
+    padding: 10px;
+    width: 600px;
+    transform-origin: top center;
+    overflow: auto;
+}
+h1, h2, h3 {
+    font-family: sans-serif;
+}
+h1 {
+    text-align: center;
+    line-height: 120%;
+}
+.center {
+    display: block;
+    margin: auto;
+}
+.panel {
+    position: absolute;
+    display: block;
+    top: 5px;
+    left: calc(50% - 42px);
+    z-index: 9001;
+}
+.panel svg {
+    fill: #EEE;
+    background: white;
+}
+.panel svg:hover {
+    fill: #666;
+}
+.panel a {
+    cursor: default;
+}
+.hidden {
+    display: none;
+}
+img {
+    padding: 10px;
+    margin: auto;
+    display: block;
+}
+.comment {
+    background: rgba(255, 255, 0, 0.3);
+    color: #666;
+    font-size: 75%;
+}
+.insert {
+    color: #008000;
+    background: rgba(255, 255, 0, 0.3);
+}
+.remove {
+    color: #FF0000;
+    background: rgba(255, 255, 0, 0.3);
+    text-decoration: line-through;
+}
+
+sup {
+    font-size: 70%;
+}
+
+.footnotes {
+    font-size: 80%;
+}
+
+</style>
+<script type="application/javascript">
+/* (c) 2014, Jaime López <jailop AT gmail.com> */
+
+window.onload = init;
+scaled = 0;   // Page is scale to cover browser window size. 
+current = 0;  // Tracks which is the active frame.
+
+/* init configures page when it is loaded. */
+function init() {
+    window.onkeydown = changeFrame; // Go next frame
+    divs = document.getElementsByClassName('frame');
+    els = divs.length; // How many frames has it
+    console.log(els);
+    for (i in divs) {
+        if (i > 0) divs[i].setAttribute('class', 'hidden');
+    }
+    var arrows = {'nav:home': moveHome, 'nav:prev': movePrev, 
+                  'nav:next': moveNext, 'nav:last': moveLast, 
+                  'nav:zoom': scaleFrame};
+    for (var key in arrows) {
+        element = document.getElementById(key)
+        if (element != null)
+            element.onclick = arrows[key];
+    }
+    /*
+    home = document.getElementById('nav:home')
+    if (home != null)
+        home.onclick= moveHome;
+    prev = document.getElementById('nav:prev')
+    if (prev != null)
+        prev.onclick = movePrev;
+    next = document.getElementById('nav:next')
+    if (next != null)
+        next.onclick = moveNext;
+    last = document.getElementById('nav:last')
+    if (last != null)
+        last.onclick = moveLast;
+    zoom = document.getElementById('nav:zoom')
+    if (zoom != null)
+        zoom.onclick = scaleFrame;
+    */
+}
+
+function changeFrame(ev) {
+    switch (ev.keyCode) {
+        case 33:
+            movePrev(); break;
+        case 34:
+            movePrev(); break;
+        case 35:
+            moveLast(); break;
+        case 36:
+            moveHome(); break;
+        case 37:
+            movePrev(); break;
+        case 38:
+            movePrev(); break;
+        case 39:
+            moveNext(); break;
+        case 40:
+            moveNext(); break;
+        case 80:
+            scaleFrame(); break;
+        case 90:
+            scaleFrame(); break;
+    }
+}
+
+function moveHome() {
+    if (current > 0) {
+        divs[current].setAttribute('class', 'hidden');
+        current = 0;
+        divs[current].setAttribute('class', 'frame');
+    }
+}
+
+function movePrev() {
+    if (current > 0) {
+        divs[current].setAttribute('class', 'hidden');
+        current--;
+        divs[current].setAttribute('class', 'frame');
+    }
+}
+
+function moveNext() {
+    if (current + 1 < els) {
+        divs[current].setAttribute('class', 'hidden');
+        current++;
+        divs[current].setAttribute('class', 'frame');
+    }
+}
+
+function moveLast() {
+    if (current + 1 != els) {
+        divs[current].setAttribute('class', 'hidden');
+        current = els - 1;
+        divs[current].setAttribute('class', 'frame');
+    }
+}
+
+function scaleFrame() {
+    if (scaled == 0) {
+        var th = window.innerHeight;
+        var tw = window.innerWidth;
+        for (i = 0; i < els; i++) {
+            if (i != current)
+                divs[i].setAttribute('class', 'frame');
+            var dh = divs[i].clientHeight;
+            var dw = divs[i].clientWidth;
+            var sy = th / dh * 0.96;
+            var sx = tw / dw * 0.98;
+            var ss = sx > sy ? sy : sx;
+            ss = dh > th ? sx : ss;
+            sty = 'transform: scale(' + ss + ',' + ss + ')';
+            sty = '-webkit-' + sty + ';' + sty;
+            divs[i].style = sty; 
+            if (i != current)
+                divs[i].setAttribute('class', 'hidden');
+        }
+        scaled = 1;
+    }
+    else {
+        for (i = 0; i < els; i++) {
+            if (i != current)
+                divs[i].setAttribute('class', 'frame');
+            sty = 'transform: scale(1, 1)';
+            sty = '-webkit-' + sty + ';' + sty;
+            divs[i].style = sty;
+            if (i != current)
+                divs[i].setAttribute('class', 'hidden');
+        }
+        scaled = 0;
+    }
+}
+
+
+</script>
+
+</head>
+<body>
+<span class="panel">
+<a id="nav:home">
+  <svg width="16px" height="9px">
+    <path d="M 5 5 L 16 1 L 16 9 L 5 5"/>
+    <path d="M 1 1 L 4 1 L 4 9 L 1 9 L 1 1"/>
+  </svg>
+</a>
+<a id="nav:prev">
+  <svg width="16px" height="9px">
+    <path d="M 3 5 L 13 1 L 13 9 L 3 5"/>
+  </svg>
+</a>
+<a id="nav:zoom">
+  <svg width="16px" height="9px">
+    <ellipse cx="8px" cy="5px" rx="4px" ry="4px"/>
+  </svg>
+</a>
+<a id="nav:next">
+  <svg width="16px" height="9px">
+    <path d="M 3 1 L 13 5 L 3 9"/>
+ </svg>
+</a>
+<a id="nav:last">
+  <svg width="16px" height="9px">
+    <path d="M 1 1 L 11 5 L 1 9 Z"/>
+    <path d="M 12 1 L 16 1 L 16 9 L 12 9 Z"/>
+  </svg>
+</a>
+</span>
+
+<div class="frame">
+
+<p>This is slide one</p>
+</div>
+
+<div class="frame">
+
+<p>This is slide two</p>
+</div>
+
+<div class="frame">
+
+<p>This is slide three</p>
+</div>
+
+<div class="frame">
+
+<p>This is slide four</p>
+</div>
+
+
+</body>
+</html>

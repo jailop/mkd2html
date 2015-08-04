@@ -1,0 +1,41 @@
+`mkd2html` convierte archivos escritos en
+Markdown en páginas web o presentaciones para
+ser vistas en un navegador.
+
+Requerimientos:
+
+- [Discount](http://www.pell.portland.or.us/~orc/Code/discount/).
+  Una librería C que implementa el etiquetado
+  Markdown.
+
+Plantilla:
+
+La página se compone a partir de campos
+definidos en el archivo template.html. Los
+campos son los siguientes:
+
+- `{BODY}`: El cuerpo de la página.
+- `{NAV}`: Barra de navegación, usada en
+  presentaciones. Está definida en el archivo
+  `nav.html`.
+- `{STYLE}`: Hoja de estilo CSS. Está definida
+  en el archivo `style.css`.
+- `{SCRIPT}`: El programa en Javascript que
+  controla la interacción de la página. Está
+  definido en el archivo `script.js`.
+- `{MATH}`: El llamado al script de Mathjax,
+  cuando en la página se usan símbolos
+  matemáticos. Está definido en el archivo
+  `math.js`.
+
+Markdown:
+
+Markdown es un conjunto de
+herramientas para convertir texto en plano en
+páginas HTML y otros formatos.
+
+- [Página de John
+  Gruber](http://daringfireball.net/projects/markdown/)
+  (creardor de Markdown).
+
+
